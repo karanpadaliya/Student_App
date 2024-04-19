@@ -1,10 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:student_app/screen/studentData.dart';
-import 'package:student_app/screen/studentModel.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key});
@@ -15,31 +13,44 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
 
+  TextEditingController studentNameController = TextEditingController();
+  TextEditingController studentGridController = TextEditingController();
+  TextEditingController studenStdController = TextEditingController();
+
+  String? xFile;
+
+  void _saveData() {
+    if (xFile != null) {
+      StudentData studentData = StudentData(
+        name: studentNameController.text,
+        grid: studentGridController.text,
+        std: studenStdController.text,
+        xFile: xFile,
+      );
+
+      Navigator.pop(context, studentData);
+    } else {
+      // Handle case where no image is selected
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Error"),
+            content: Text("Select an image."),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    TextEditingController studentNameController = TextEditingController();
-    TextEditingController studentGridController = TextEditingController();
-    TextEditingController studenStdController = TextEditingController();
-
-    // void _addStudentData() {
-    //   setState(() {
-    //     allStudentData.add({
-    //       'name': studentNameController.text,
-    //       'grid': studentGridController.text,
-    //       'std': studenStdController.text,
-    //       // 'xFile': xFileController.text,
-    //     });
-    //     // Clear text fields after adding data
-    //     studentNameController.clear();
-    //     studentGridController.clear();
-    //     studenStdController.clear();
-    //     // xFileController.clear();
-    //   });
-    // }
-
-    // var studentModel = StudentModel.fromJson(studentData as Map<String, dynamic>);
-
     return Scaffold(
       // backgroundColor: CupertinoColors.darkBackgroundGray,
       appBar: AppBar(
@@ -71,7 +82,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 8, left: 8,right: 8),
+                  padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -86,7 +97,10 @@ class _DetailsPageState extends State<DetailsPage> {
                       Stack(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 20,left: 130,),
+                            padding: const EdgeInsets.only(
+                              top: 20,
+                              left: 130,
+                            ),
                             child: InkWell(
                               onTap: () {
                                 _addLogo(context, () {
@@ -108,14 +122,14 @@ class _DetailsPageState extends State<DetailsPage> {
                                   radius: 10,
                                   backgroundColor: Color(0xfff4f4f4),
                                   backgroundImage: FileImage(
-                                    File(studentData.xFile ?? ""),
+                                    File(xFile ?? ""),
                                   ),
                                 ),
                               ),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 85,left: 200),
+                            padding: const EdgeInsets.only(top: 85, left: 200),
                             child: Container(
                               height: 30,
                               width: 30,
@@ -140,7 +154,8 @@ class _DetailsPageState extends State<DetailsPage> {
                             children: [
                               //Student Name
                               Padding(
-                                padding: const EdgeInsets.only(top: 10, left: 5),
+                                padding:
+                                    const EdgeInsets.only(top: 10, left: 5),
                                 child: Text(
                                   "Student Name",
                                   style: TextStyle(
@@ -166,10 +181,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                   ),
                                 ),
                               ),
-                          
+
                               //Student grid
                               Padding(
-                                padding: const EdgeInsets.only(top: 10, left: 5),
+                                padding:
+                                    const EdgeInsets.only(top: 10, left: 5),
                                 child: Text(
                                   "GR.Id",
                                   style: TextStyle(
@@ -195,10 +211,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                   ),
                                 ),
                               ),
-                          
+
                               //student_standard
                               Padding(
-                                padding: const EdgeInsets.only(top: 10, left: 5),
+                                padding:
+                                    const EdgeInsets.only(top: 10, left: 5),
                                 child: Text(
                                   "Standard",
                                   style: TextStyle(
@@ -232,7 +249,9 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: CupertinoColors.link,
@@ -251,16 +270,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     fontWeight: FontWeight.w700,
                   ),
                 ), // Button text
-                onPressed: () {
-                  String studentName = studentNameController.text;
-                  studentData.name = studentName;
-                  String studentGrid = studentGridController.text;
-                  studentData.grid = studentGrid;
-                  String studentStd = studenStdController.text;
-                  studentData.std = studentStd;
-                  Navigator.pushReplacementNamed(context, "HomePage");
-                  allStudentData.add(studentNameController);
-                },
+                onPressed: _saveData,
               ),
             ],
           ),
@@ -290,11 +300,13 @@ class _DetailsPageState extends State<DetailsPage> {
             children: [
               InkWell(
                 onTap: () async {
-                  XFile? file = await ImagePicker()
-                      .pickImage(source: ImageSource.gallery);
-                  studentData.xFile = file?.path ?? "No Find Path";
+                  XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
+                  if (file != null) {
+                    setState(() {
+                      xFile = file.path; // Assign selected image file path to xFile
+                    });
+                  }
                   Navigator.pop(context);
-                  setState(() {});
                 },
                 child: Text(
                   "Gallery",
@@ -307,11 +319,13 @@ class _DetailsPageState extends State<DetailsPage> {
               Divider(),
               InkWell(
                 onTap: () async {
-                  XFile? file =
-                      await ImagePicker().pickImage(source: ImageSource.camera);
-                  studentData.xFile = file?.path ?? "";
+                  XFile? file = await ImagePicker().pickImage(source: ImageSource.camera);
+                  if (file != null) {
+                    setState(() {
+                      xFile = file.path; // Assign selected image file path to xFile
+                    });
+                  }
                   Navigator.pop(context);
-                  setState(() {});
                 },
                 child: Text(
                   "Camera",

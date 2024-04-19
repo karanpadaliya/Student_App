@@ -2,42 +2,55 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:student_app/screen/studentData.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class Homepage extends StatefulWidget {
+  const Homepage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Homepage> createState() => _HomepageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomepageState extends State<Homepage> {
+  List<StudentData> studentList = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: CupertinoColors.darkBackgroundGray,
       appBar: AppBar(
-        backgroundColor: CupertinoColors.link,
         title: Text(
-          'Home Page',
-          style: TextStyle(
-            color: Colors.white,
-          ),
+          "Home Page",
+          style: TextStyle(color: Colors.white),
         ),
+        backgroundColor: CupertinoColors.link,
       ),
-      body: Column(children: ),
+      body: ListView.builder(
+        itemCount: studentList.length,
+        itemBuilder: (context, index) {
+          StudentData student = studentList[index];
+          return Card(
+            child: ListTile(
+              leading: CircleAvatar(
+                // backgroundImage: FileImage('student.xFile'),
+              ),
+              title: Text('Name: ${student.name}'),
+              subtitle: Text('GR-ID: ${student.grid} | Std: ${student.std}'),
+            ),
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final result = await Navigator.pushNamed(context, 'DetailsPage');
+          if (result != null && result is StudentData) {
+            setState(() {
+              studentList.add(result);
+            });
+          }
+        },
+        child: Icon(Icons.add),
         backgroundColor: CupertinoColors.link,
         foregroundColor: Colors.white,
-        onPressed: () {
-          Navigator.pushReplacementNamed(context, "DetailsPage");
-        },
-        child: Icon(
-          Icons.add,
-          size: 30,
-        ),
+        shape: CircleBorder(),
       ),
     );
   }
 }
-
-
-

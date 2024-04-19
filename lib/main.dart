@@ -39,7 +39,7 @@ class _MainPageState extends State<MainPage> {
         fontFamily: "Rubik",
       ),
       routes: {
-        "HomePage": (context) => HomePage(),
+        "HomePage": (context) => Homepage(),
         "DetailsPage": (context) => DetailsPage(),
       },
       onUnknownRoute: (settings) {
