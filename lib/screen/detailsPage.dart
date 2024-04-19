@@ -121,9 +121,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 child: CircleAvatar(
                                   radius: 10,
                                   backgroundColor: Color(0xfff4f4f4),
-                                  backgroundImage: FileImage(
-                                    File(xFile ?? ""),
-                                  ),
+                                  backgroundImage: FileImage(File(xFile??"")),
                                 ),
                               ),
                             ),
@@ -303,7 +301,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
                   if (file != null) {
                     setState(() {
-                      xFile = file.path; // Assign selected image file path to xFile
+                      xFile = file.path;
                     });
                   }
                   Navigator.pop(context);
@@ -322,7 +320,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   XFile? file = await ImagePicker().pickImage(source: ImageSource.camera);
                   if (file != null) {
                     setState(() {
-                      xFile = file.path; // Assign selected image file path to xFile
+                      xFile = file.path;
                     });
                   }
                   Navigator.pop(context);
