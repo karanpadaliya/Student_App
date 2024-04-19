@@ -29,7 +29,7 @@ class _HomepageState extends State<Homepage> {
           return Card(
             child: ListTile(
               leading: CircleAvatar(
-                // backgroundImage: FileImage('student.xFile'),
+                // backgroundImage: FileImage(student.xFile??),
               ),
               title: Text('Name: ${student.name}'),
               subtitle: Text('GR-ID: ${student.grid} | Std: ${student.std}'),
