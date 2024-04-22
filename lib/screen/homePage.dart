@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:student_app/screen/globalData.dart';
 import 'package:student_app/screen/studentData.dart';
 
 class Homepage extends StatefulWidget {
@@ -12,8 +13,6 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  List<StudentData> studentList = [];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,10 +30,17 @@ class _HomepageState extends State<Homepage> {
           return Card(
             child: ListTile(
               leading: CircleAvatar(
-                backgroundImage: FileImage(File(student.xFile??"")),
+                backgroundImage: FileImage(File(student.xFile ?? "")),
               ),
               title: Text('Name: ${student.name}'),
               subtitle: Text('GR-ID: ${student.grid} | Std: ${student.std}'),
+              trailing: IconButton(
+                onPressed: () {
+                  studentList.removeAt(index);
+                  setState(() {});
+                },
+                icon: Icon(Icons.delete),
+              ),
             ),
           );
         },

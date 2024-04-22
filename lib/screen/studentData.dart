@@ -12,4 +12,5 @@ class StudentData {
     required this.std,
     required this.xFile,
   });
+
 }

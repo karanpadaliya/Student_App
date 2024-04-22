@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:student_app/screen/globalData.dart';
 import 'package:student_app/screen/studentData.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -13,9 +14,9 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
 
-  TextEditingController studentNameController = TextEditingController();
-  TextEditingController studentGridController = TextEditingController();
-  TextEditingController studenStdController = TextEditingController();
+  TextEditingController studentNameController = TextEditingController(text: studentData.name);
+  TextEditingController studentGridController = TextEditingController(text: studentData.grid);
+  TextEditingController studentStdController = TextEditingController(text:  studentData.std);
 
   String? xFile;
 
@@ -24,7 +25,7 @@ class _DetailsPageState extends State<DetailsPage> {
       StudentData studentData = StudentData(
         name: studentNameController.text,
         grid: studentGridController.text,
-        std: studenStdController.text,
+        std: studentStdController.text,
         xFile: xFile,
       );
 
@@ -231,7 +232,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: TextFormField(
-                                  controller: studenStdController,
+                                  controller: studentStdController,
                                   textInputAction: TextInputAction.next,
                                   decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.stacked_bar_chart),
