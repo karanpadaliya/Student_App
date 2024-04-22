@@ -172,6 +172,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: TextFormField(
+                                  // initialValue: studentData.name,
                                   controller: studentNameController,
                                   textInputAction: TextInputAction.next,
                                   decoration: InputDecoration(
