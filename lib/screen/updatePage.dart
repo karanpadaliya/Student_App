@@ -1,53 +1,23 @@
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:student_app/screen/studentData.dart';
+import 'package:student_app/screen/globalData.dart';
 
+class updatePage extends StatefulWidget {
+  const updatePage({super.key});
 
-class DetailsPage extends StatefulWidget {
   @override
-  State<DetailsPage> createState() => _DetailsPageState();
+  State<updatePage> createState() => _updatePageState();
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class _updatePageState extends State<updatePage> {
 
-
-  TextEditingController studentNameController = TextEditingController();
-  TextEditingController studentGridController = TextEditingController();
-  TextEditingController studentStdController = TextEditingController();
-
+  TextEditingController studentNameController = TextEditingController(text: studentList[index].name);
+  TextEditingController studentGridController = TextEditingController(text: studentList[index].grid);
+  TextEditingController studentStdController = TextEditingController(text: studentList[index].std);
   String? xFile;
-
-  void _saveData() {
-    if (xFile != null) {
-      StudentData studentData = StudentData(
-        name: studentNameController.text,
-        grid: studentGridController.text,
-        std: studentStdController.text,
-        xFile: xFile,
-      );
-
-      Navigator.pop(context, studentData);
-    } else {
-      // Handle case where no image is selected
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Error"),
-            content: Text("Select an image."),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text("OK"),
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +36,7 @@ class _DetailsPageState extends State<DetailsPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding:
-              const EdgeInsets.only(top: 20, left: 15, right: 10, bottom: 20),
+          const EdgeInsets.only(top: 20, left: 15, right: 10, bottom: 20),
           child: Column(
             children: [
               Container(
@@ -153,7 +123,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               //Student Name
                               Padding(
                                 padding:
-                                    const EdgeInsets.only(top: 10, left: 5),
+                                const EdgeInsets.only(top: 10, left: 5),
                                 child: Text(
                                   "Student Name",
                                   style: TextStyle(
@@ -184,7 +154,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               //Student grid
                               Padding(
                                 padding:
-                                    const EdgeInsets.only(top: 10, left: 5),
+                                const EdgeInsets.only(top: 10, left: 5),
                                 child: Text(
                                   "GR.Id",
                                   style: TextStyle(
@@ -214,7 +184,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               //student_standard
                               Padding(
                                 padding:
-                                    const EdgeInsets.only(top: 10, left: 5),
+                                const EdgeInsets.only(top: 10, left: 5),
                                 child: Text(
                                   "Standard",
                                   style: TextStyle(
@@ -251,33 +221,32 @@ class _DetailsPageState extends State<DetailsPage> {
               SizedBox(
                 height: 10,
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: CupertinoColors.link,
-                  foregroundColor: Colors.white,
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10), // Rounded corners
-                  ),
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 20, vertical: 5), // Button padding
-                ),
-                child: Text(
-                  ' Save ',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ), // Button text
-                onPressed: _saveData,
-              ),
+              // ElevatedButton(
+              //   style: ElevatedButton.styleFrom(
+              //     backgroundColor: CupertinoColors.link,
+              //     foregroundColor: Colors.white,
+              //     elevation: 10,
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(10), // Rounded corners
+              //     ),
+              //     padding: EdgeInsets.symmetric(
+              //         horizontal: 20, vertical: 5), // Button padding
+              //   ),
+              //   child: Text(
+              //     ' Save ',
+              //     style: TextStyle(
+              //       fontSize: 15,
+              //       fontWeight: FontWeight.w700,
+              //     ),
+              //   ), // Button text
+              //   onPressed: _saveData,
+              // ),
             ],
           ),
         ),
       ),
     );
   }
-
   void _addLogo(BuildContext context, VoidCallback callback) {
     showDialog(
       context: context,

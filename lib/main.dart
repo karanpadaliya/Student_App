@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:student_app/screen/detailsPage.dart';
 import 'package:student_app/screen/homePage.dart';
+import 'package:student_app/screen/updatePage.dart';
 
 
 void main() {
@@ -41,6 +42,7 @@ class _MainPageState extends State<MainPage> {
       routes: {
         "HomePage": (context) => Homepage(),
         "DetailsPage": (context) => DetailsPage(),
+        "updatePage": (context) => updatePage(),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(

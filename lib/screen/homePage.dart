@@ -6,7 +6,6 @@ import 'package:student_app/screen/globalData.dart';
 import 'package:student_app/screen/studentData.dart';
 
 class Homepage extends StatefulWidget {
-  const Homepage({Key? key}) : super(key: key);
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -26,7 +25,7 @@ class _HomepageState extends State<Homepage> {
       body: InkWell(
         onTap: (){
           // Navigator.pushNamed(context, 'DetailsPage');
-          Navigator.pushNamed(context, "DetailsPage",arguments: studentData);
+          Navigator.pushNamed(context, "DetailsPage",arguments: studentList[index]);
         },
         child: ListView.builder(
           itemCount: studentList.length,
