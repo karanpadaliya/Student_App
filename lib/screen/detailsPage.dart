@@ -10,6 +10,8 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
+
+
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController studentNameController = TextEditingController();
