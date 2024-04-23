@@ -8,15 +8,16 @@ import 'package:student_app/screen/globalData.dart';
 class updatePage extends StatefulWidget {
   const updatePage({super.key});
 
+
   @override
   State<updatePage> createState() => _updatePageState();
 }
 
 class _updatePageState extends State<updatePage> {
 
-  TextEditingController studentNameController = TextEditingController(text: studentList[index].name);
-  TextEditingController studentGridController = TextEditingController(text: studentList[index].grid);
-  TextEditingController studentStdController = TextEditingController(text: studentList[index].std);
+  // TextEditingController studentNameController = TextEditingController(text: studentList[index].name);
+  // TextEditingController studentGridController = TextEditingController(text: studentList[index].grid);
+  // TextEditingController studentStdController = TextEditingController(text: studentList[index].std);
   String? xFile;
 
   @override
@@ -142,7 +143,7 @@ class _updatePageState extends State<updatePage> {
                                 ),
                                 child: TextFormField(
                                   // initialValue: studentData.name,
-                                  controller: studentNameController,
+                                  // controller: studentNameController,
                                   textInputAction: TextInputAction.next,
                                   decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.person),
@@ -172,7 +173,7 @@ class _updatePageState extends State<updatePage> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: TextFormField(
-                                  controller: studentGridController,
+                                  // controller: studentGridController,
                                   textInputAction: TextInputAction.next,
                                   decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.recent_actors),
@@ -202,7 +203,7 @@ class _updatePageState extends State<updatePage> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: TextFormField(
-                                  controller: studentStdController,
+                                  // controller: studentStdController,
                                   textInputAction: TextInputAction.next,
                                   decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.stacked_bar_chart),

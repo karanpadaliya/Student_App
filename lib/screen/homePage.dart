@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:student_app/screen/globalData.dart';
 import 'package:student_app/screen/studentData.dart';
 
 class Homepage extends StatefulWidget {
-
   @override
   State<Homepage> createState() => _HomepageState();
 }
@@ -23,9 +23,9 @@ class _HomepageState extends State<Homepage> {
         backgroundColor: CupertinoColors.link,
       ),
       body: InkWell(
-        onTap: (){
+        onTap: () {
           // Navigator.pushNamed(context, 'DetailsPage');
-          Navigator.pushNamed(context, "DetailsPage",arguments: studentList[index]);
+          Navigator.pushNamed(context, "DetailsPage", arguments: studentList);
         },
         child: ListView.builder(
           itemCount: studentList.length,
@@ -33,8 +33,13 @@ class _HomepageState extends State<Homepage> {
             StudentData student = studentList[index];
             return Card(
               child: ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: FileImage(File(student.xFile ?? "")),
+                leading: InkWell(
+                  onTap: (){
+                    return print('Show dialodbox');
+                    },
+                  child: CircleAvatar(
+                    backgroundImage: FileImage(File(student.xFile!)),
+                  ),
                 ),
                 title: Text('Name: ${student.name}'),
                 subtitle: Text('GR-ID: ${student.grid} | Std: ${student.std}'),
@@ -43,7 +48,7 @@ class _HomepageState extends State<Homepage> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        _showDialog(context,index);
+                        _showDialog(context, index);
                       },
                       icon: Icon(Icons.edit),
                     ),
@@ -77,10 +82,15 @@ class _HomepageState extends State<Homepage> {
       ),
     );
   }
+
+
   void _showDialog(BuildContext context, int index) {
-    TextEditingController studentNameController = TextEditingController(text: studentList[index].name);
-    TextEditingController studentGridController = TextEditingController(text: studentList[index].grid);
-    TextEditingController studentStdController = TextEditingController(text: studentList[index].std);
+    TextEditingController studentNameController =
+        TextEditingController(text: studentList[index].name);
+    TextEditingController studentGridController =
+        TextEditingController(text: studentList[index].grid);
+    TextEditingController studentStdController =
+        TextEditingController(text: studentList[index].std);
 
     showDialog(
       context: context,
@@ -129,4 +139,5 @@ class _HomepageState extends State<Homepage> {
       },
     );
   }
+
 }
